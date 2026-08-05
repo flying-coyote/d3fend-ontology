@@ -1,7 +1,7 @@
 @prefix : <http://d3fend.mitre.org/ontologies/d3fend.owl#> .
 @prefix d3f: <http://d3fend.mitre.org/ontologies/d3fend.owl#> .
 @prefix cco: <http://www.ontologyrepository.com/CommonCoreOntologies/> .
-@prefix obo: <http://purl/obolibrary.org/obo/> . # Note that obo is prefix for BFO in MergedAllCoreOntology
+@prefix obo: <http://purl.obolibrary.org/obo/> . # Note that obo is prefix for BFO in MergedAllCoreOntology
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
@@ -19,12 +19,12 @@
 #
 # Class Mappings
 #
-# Note: The obo: prefix doesn't resolve in the ROBOT merge, so full IRI specified...
+# Note: Full IRIs are written out below rather than prefixed names.
 
 d3f:DigitalArtifact rdfs:subClassOf <https://www.commoncoreontologies.org/ont00000798> .
 # cco ont00000798 is Information Bearing Artifact. We tentatively consider all the subclasses of Digital Artifact as information bearers in the CCO sense
 
-# Note: The obo: prefix doesn't resolve in the ROBOT merge, so full IRI specified.
+# Note: Full IRI written out rather than a prefixed name.
 d3f:Artifact owl:equivalentClass <https://www.commoncoreontologies.org/ont00000995> .
 # cco ont00000995 is material artifact
 
@@ -128,8 +128,8 @@ d3f:Identifier rdfs:subClassOf
 # Property Mappings
 #
 
-# General Note: The obo: prefix doesn't resolve in the ROBOT merge, so
-# full IRI specified where BFO concepts referenced.
+# General Note: Full IRIs are written out where BFO concepts are
+# referenced, rather than obo: prefixed names.
 
 # Note: The bo:contains property means something different than
 # d3f:contains; it is spatial containment between material and
