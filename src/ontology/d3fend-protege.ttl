@@ -2500,7 +2500,13 @@ The adversary can use the replicated model to [Craft Adversarial Data](/techniqu
 :AML.T0006 a owl:Class ;
     rdfs:label "Active Scanning - ATLAS" ;
     skos:prefLabel "Active Scanning" ;
-    rdfs:subClassOf :ATLASReconnaissanceTechnique ;
+    rdfs:subClassOf :ATLASReconnaissanceTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :enumerates ;
+            owl:someValuesFrom :ServiceApplicationProcess ],
+        [ a owl:Restriction ;
+            owl:onProperty :produces ;
+            owl:someValuesFrom :Email ] ;
     :attack-id "AML.T0006" ;
     :definition """An adversary may probe or scan the victim system to gather information for targeting. This is distinct from other reconnaissance techniques that do not involve direct interaction with the victim system.
 
