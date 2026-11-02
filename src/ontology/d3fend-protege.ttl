@@ -3730,7 +3730,10 @@ The leaked information may come from proprietary training data, data sources the
 :AML.T0061 a owl:Class ;
     rdfs:label "LLM Prompt Self-Replication - ATLAS" ;
     skos:prefLabel "LLM Prompt Self-Replication" ;
-    rdfs:subClassOf :ATLASPersistenceTechnique ;
+    rdfs:subClassOf :ATLASPersistenceTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :copies ;
+            owl:someValuesFrom :DigitalMessage ] ;
     :attack-id "AML.T0061" ;
     :definition "An adversary may use a carefully crafted [LLM Prompt Injection](/techniques/AML.T0051) designed to cause the LLM to replicate the prompt as part of its output. This allows the prompt to propagate to other LLMs and persist on the system. The self-replicating prompt is typically paired with other malicious instructions (ex: [LLM Jailbreak](/techniques/AML.T0054), [LLM Data Leakage](/techniques/AML.T0057))." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0061> .
@@ -3877,7 +3880,10 @@ Inputs can also be obscured via an encoding scheme such as base64 or rot13. This
 :AML.T0070 a owl:Class ;
     rdfs:label "RAG Poisoning - ATLAS" ;
     skos:prefLabel "RAG Poisoning" ;
-    rdfs:subClassOf :ATLASPersistenceTechnique ;
+    rdfs:subClassOf :ATLASPersistenceTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :DocumentFile ] ;
     :attack-id "AML.T0070" ;
     :definition """Adversaries may inject malicious content into data indexed by a retrieval augmented generation (RAG) system to contaminate a future thread through RAG-based search results. This may be accomplished by placing manipulated documents in a location the RAG indexes (see [Gather RAG-Indexed Targets](/techniques/AML.T0064)).
 
@@ -4042,7 +4048,10 @@ Context poisoning can be accomplished by prompting the an LLM to add instruction
 :AML.T0080.000 a owl:Class ;
     rdfs:label "Memory - ATLAS" ;
     skos:prefLabel "Memory" ;
-    rdfs:subClassOf :AML.T0080 ;
+    rdfs:subClassOf :AML.T0080,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :Database ] ;
     :attack-id "AML.T0080.000" ;
     :definition """Adversaries may manipulate the memory of a large language model (LLM) in order to persist changes to the LLM to future chat sessions.
 
@@ -4052,7 +4061,10 @@ Memory is a common feature in LLMs that allows them to remember information acro
 :AML.T0080.001 a owl:Class ;
     rdfs:label "Thread - ATLAS" ;
     skos:prefLabel "Thread" ;
-    rdfs:subClassOf :AML.T0080 ;
+    rdfs:subClassOf :AML.T0080,
+        [ a owl:Restriction ;
+            owl:onProperty :injects ;
+            owl:someValuesFrom :DigitalMessage ] ;
     :attack-id "AML.T0080.001" ;
     :definition """Adversaries may introduce malicious instructions into a chat thread of a large language model (LLM) to cause behavior changes which persist for the remainder of the thread. A chat thread may continue for an extended period over multiple sessions.
 
@@ -4066,7 +4078,13 @@ Thread Poisoning may affect multiple users if the LLM is being used in a service
     rdfs:label "Modify AI Agent Configuration - ATLAS" ;
     skos:prefLabel "Modify AI Agent Configuration" ;
     rdfs:subClassOf :ATLASDefenseEvasionTechnique,
-        :ATLASPersistenceTechnique ;
+        :ATLASPersistenceTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :ApplicationConfiguration ],
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :ApplicationConfigurationFile ] ;
     :attack-id "AML.T0081" ;
     :definition """Adversaries may modify the configuration files for AI agents on a system. This allows malicious changes to persist beyond the life of a single agent and affects any agents that share the configuration.
 
@@ -4469,7 +4487,10 @@ Adversaries may use several methods to accomplish Virtualization/Sandbox Evasion
 :AML.T0099 a owl:Class ;
     rdfs:label "AI Agent Tool Data Poisoning - ATLAS" ;
     skos:prefLabel "AI Agent Tool Data Poisoning" ;
-    rdfs:subClassOf :ATLASPersistenceTechnique ;
+    rdfs:subClassOf :ATLASPersistenceTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :DocumentFile ] ;
     :attack-id "AML.T0099" ;
     :definition """Adversaries may place malicious content on a victim's system where it can be retrieved by an AI Agent Tool. This may be accomplished by placing documents in a location that will be ingested by a service the AI agent has associated tools for.
 
