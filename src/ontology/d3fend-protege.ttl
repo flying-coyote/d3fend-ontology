@@ -2747,7 +2747,16 @@ Agent tools have exploded in popularity, with thousands of MCP servers available
 :AML.T0011 a owl:Class ;
     rdfs:label "User Execution - ATLAS" ;
     skos:prefLabel "User Execution" ;
-    rdfs:subClassOf :ATLASExecutionTechnique ;
+    rdfs:subClassOf :ATLASExecutionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :URL ],
+        [ a owl:Restriction ;
+            owl:onProperty :executes ;
+            owl:someValuesFrom :ExecutableFile ],
+        [ a owl:Restriction ;
+            owl:onProperty :produces ;
+            owl:someValuesFrom :OutboundInternetWebTraffic ] ;
     :attack-id "AML.T0011" ;
     :definition """An adversary may rely upon specific actions by a user in order to gain execution.
 Users may inadvertently execute unsafe code introduced via [AI Supply Chain Compromise](/techniques/AML.T0010).
@@ -2757,7 +2766,10 @@ Users may be subjected to social engineering to get them to execute malicious co
 :AML.T0011.000 a owl:Class ;
     rdfs:label "Unsafe AI Artifacts - ATLAS" ;
     skos:prefLabel "Unsafe AI Artifacts" ;
-    rdfs:subClassOf :AML.T0011 ;
+    rdfs:subClassOf :AML.T0011,
+        [ a owl:Restriction ;
+            owl:onProperty :executes ;
+            owl:someValuesFrom :ExecutableFile ] ;
     :attack-id "AML.T0011.000" ;
     :definition """Adversaries may develop unsafe AI artifacts that when executed have a deleterious effect.
 The adversary can use this technique to establish persistent access to systems.
@@ -3449,7 +3461,19 @@ An adversary who has stolen a model via [Exfiltration](/tactics/AML.TA0010) or v
 :AML.T0050 a owl:Class ;
     rdfs:label "Command and Scripting Interpreter - ATLAS" ;
     skos:prefLabel "Command and Scripting Interpreter" ;
-    rdfs:subClassOf :ATLASExecutionTechnique ;
+    rdfs:subClassOf :ATLASExecutionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :executes ;
+            owl:someValuesFrom :ExecutableBinary ],
+        [ a owl:Restriction ;
+            owl:onProperty :executes ;
+            owl:someValuesFrom :ExecutableScript ],
+        [ a owl:Restriction ;
+            owl:onProperty :executes ;
+            owl:someValuesFrom :ShellCommand ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :RemoteSession ] ;
     :attack-id "AML.T0050" ;
     :definition """Adversaries may abuse command and script interpreters to execute commands, scripts, or binaries. These interfaces and languages provide ways of interacting with computer systems and are a common feature across many different platforms. Most systems come with some built-in command-line interface and scripting capabilities, for example, macOS and Linux distributions include some flavor of Unix Shell while Windows installations include the Windows Command Shell and PowerShell.
 
@@ -3478,7 +3502,10 @@ Malicious prompts may also be [Triggered](/techniques/AML.T0051.002) user action
 :AML.T0051.000 a owl:Class ;
     rdfs:label "Direct - ATLAS" ;
     skos:prefLabel "Direct" ;
-    rdfs:subClassOf :AML.T0051 ;
+    rdfs:subClassOf :AML.T0051,
+        [ a owl:Restriction ;
+            owl:onProperty :injects ;
+            owl:someValuesFrom :DigitalMessage ] ;
     :attack-id "AML.T0051.000" ;
     :definition "An adversary may inject prompts directly as a user of the LLM. This type of injection may be used by the adversary to gain a foothold in the system or to misuse the LLM itself, as for example to generate harmful content." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0051.000> .
@@ -3486,7 +3513,10 @@ Malicious prompts may also be [Triggered](/techniques/AML.T0051.002) user action
 :AML.T0051.001 a owl:Class ;
     rdfs:label "Indirect - ATLAS" ;
     skos:prefLabel "Indirect" ;
-    rdfs:subClassOf :AML.T0051 ;
+    rdfs:subClassOf :AML.T0051,
+        [ a owl:Restriction ;
+            owl:onProperty :injects ;
+            owl:someValuesFrom :DigitalMessage ] ;
     :attack-id "AML.T0051.001" ;
     :definition """An adversary may inject prompts indirectly via separate data channel ingested by the LLM such as include text or multimedia pulled from databases or websites.
 These malicious prompts may be hidden or obfuscated from the user. This type of injection may be used by the adversary to gain a foothold in the system or to target an unwitting user of the system.""" ;
@@ -3495,7 +3525,10 @@ These malicious prompts may be hidden or obfuscated from the user. This type of 
 :AML.T0051.002 a owl:Class ;
     rdfs:label "Triggered - ATLAS" ;
     skos:prefLabel "Triggered" ;
-    rdfs:subClassOf :AML.T0051 ;
+    rdfs:subClassOf :AML.T0051,
+        [ a owl:Restriction ;
+            owl:onProperty :injects ;
+            owl:someValuesFrom :DigitalMessage ] ;
     :attack-id "AML.T0051.002" ;
     :definition "An adversary may trigger a prompt injection via a user action or event that occurs within the victim's environment. Triggered prompt injections often target AI agents, which can be activated by means the adversary identifies during [Discovery](/tactics/AML.TA0008) (See [Activation Triggers](/techniques/AML.T0084.002)). These malicious prompts may be hidden or obfuscated from the user and may already exist somewhere in the victim's environment from the adversary performing [Prompt Infiltration via Public-Facing Application](/techniques/AML.T0093). This type of injection may be used by the adversary to gain a foothold in the system or to target an unwitting user of the system." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0051.002> .
@@ -3567,7 +3600,10 @@ The attacks span communication channels including voice deepfakes for vishing [[
     rdfs:label "AI Agent Tool Invocation - ATLAS" ;
     skos:prefLabel "AI Agent Tool Invocation" ;
     rdfs:subClassOf :ATLASExecutionTechnique,
-        :ATLASPrivilegeEscalationTechnique ;
+        :ATLASPrivilegeEscalationTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Application ] ;
     :attack-id "AML.T0053" ;
     :definition """Adversaries may use their access to an AI agent to invoke tools the agent has access to. LLMs are often connected to other services or resources via tools to increase their capabilities. Tools may include integrations with other applications, access to public or private data sources, and the ability to execute code.
 
@@ -4374,7 +4410,16 @@ The content may be targeted such that it would often be retrieved by common quer
 :AML.T0100 a owl:Class ;
     rdfs:label "AI Agent Clickbait - ATLAS" ;
     skos:prefLabel "AI Agent Clickbait" ;
-    rdfs:subClassOf :ATLASExecutionTechnique ;
+    rdfs:subClassOf :ATLASExecutionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WebResource ],
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :WebResource ],
+        [ a owl:Restriction ;
+            owl:onProperty :executes ;
+            owl:someValuesFrom :ExecutableScript ] ;
     :attack-id "AML.T0100" ;
     :definition "Adversaries may craft deceptive web content designed to bait Computer-Using AI agents or AI web browsers into taking unintended actions, such as clicking buttons, copying code, or navigating to specific web pages. These attacks exploit the agent's interpretation of UI content, visual cues, or prompt-like language embedded in the site. When successful, they can lead the agent to inadvertently copy and execute malicious code on the user's operating system." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0100> .
@@ -4409,7 +4454,10 @@ Adversaries may utilize LLMs present in the victim's environment or call out to 
 :AML.T0103 a owl:Class ;
     rdfs:label "Deploy AI Agent - ATLAS" ;
     skos:prefLabel "Deploy AI Agent" ;
-    rdfs:subClassOf :ATLASExecutionTechnique ;
+    rdfs:subClassOf :ATLASExecutionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :AccessControlConfiguration ] ;
     :attack-id "AML.T0103" ;
     :definition """Adversaries may launch AI agents in the victim's environment to execute actions on their behalf. AI agents may have access to a wide range of tools and data sources, as well as permissions to access and interact with other services and systems in the victim's environment. The adversary may leverage these capabilities to carry out their operations.
 
