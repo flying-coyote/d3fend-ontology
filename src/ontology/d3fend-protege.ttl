@@ -3717,7 +3717,10 @@ The LLM may be instructed to tailor its language to appear more trustworthy to t
 :AML.T0067.000 a owl:Class ;
     rdfs:label "Citations - ATLAS" ;
     skos:prefLabel "Citations" ;
-    rdfs:subClassOf :AML.T0067 ;
+    rdfs:subClassOf :AML.T0067,
+        [ a owl:Restriction ;
+            owl:onProperty :forges ;
+            owl:someValuesFrom :Metadata ] ;
     :attack-id "AML.T0067.000" ;
     :definition "Adversaries may manipulate the citations provided in an AI system's response, in order to make it appear trustworthy. Variants include citing a providing the wrong citation, making up a new citation, or providing the right citation but for adversary-provided data." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0067.000> .
@@ -3725,7 +3728,10 @@ The LLM may be instructed to tailor its language to appear more trustworthy to t
 :AML.T0068 a owl:Class ;
     rdfs:label "LLM Prompt Obfuscation - ATLAS" ;
     skos:prefLabel "LLM Prompt Obfuscation" ;
-    rdfs:subClassOf :ATLASDefenseEvasionTechnique ;
+    rdfs:subClassOf :ATLASDefenseEvasionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :obfuscates ;
+            owl:someValuesFrom :DigitalMessage ] ;
     :attack-id "AML.T0068" ;
     :definition """Adversaries may hide or otherwise obfuscate prompt injections or retrieval content to avoid detection from humans, large language model (LLM) guardrails, or other detection mechanisms.
 
@@ -3779,7 +3785,10 @@ The content may be targeted such that it would always surface as a search result
 :AML.T0071 a owl:Class ;
     rdfs:label "False RAG Entry Injection - ATLAS" ;
     skos:prefLabel "False RAG Entry Injection" ;
-    rdfs:subClassOf :ATLASDefenseEvasionTechnique ;
+    rdfs:subClassOf :ATLASDefenseEvasionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :injects ;
+            owl:someValuesFrom :Database ] ;
     :attack-id "AML.T0071" ;
     :definition """Adversaries may introduce false entries into a victim's retrieval augmented generation (RAG) database. Content designed to be interpreted as a document by the large language model (LLM) used in the RAG system is included in a data source being ingested into the RAG database. When RAG entry including the false document is retrieved, the LLM is tricked into treating part of the retrieved content as a false RAG result.
 
@@ -3801,7 +3810,10 @@ Typically, a user uses a client to connect to a remote machine which is listenin
 :AML.T0073 a owl:Class ;
     rdfs:label "Impersonation - ATLAS" ;
     skos:prefLabel "Impersonation" ;
-    rdfs:subClassOf :ATLASDefenseEvasionTechnique ;
+    rdfs:subClassOf :ATLASDefenseEvasionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :forges ;
+            owl:someValuesFrom :Email ] ;
     :attack-id "AML.T0073" ;
     :definition """Adversaries may impersonate a trusted person or organization in order to persuade and trick a target into performing some action on their behalf. For example, adversaries may communicate with victims (via [Phishing](/techniques/AML.T0052), or [Spearphishing via Social Engineering LLM](/techniques/AML.T0052.000)) while impersonating a known sender such as an executive, colleague, or third-party vendor. Established trust can then be leveraged to accomplish an adversary's ultimate goals, possibly against multiple victims.
 
@@ -3811,7 +3823,28 @@ Adversaries may target resources that are part of the AI DevOps lifecycle, such 
 :AML.T0074 a owl:Class ;
     rdfs:label "Masquerading - ATLAS" ;
     skos:prefLabel "Masquerading" ;
-    rdfs:subClassOf :ATLASDefenseEvasionTechnique ;
+    rdfs:subClassOf :ATLASDefenseEvasionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :ExecutableBinary ],
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :File ],
+        [ a owl:Restriction ;
+            owl:onProperty :invokes ;
+            owl:someValuesFrom :MoveFile ],
+        [ a owl:Restriction ;
+            owl:onProperty :may-create ;
+            owl:someValuesFrom :ExecutableFile ],
+        [ a owl:Restriction ;
+            owl:onProperty :may-modify ;
+            owl:someValuesFrom :OperatingSystemExecutableFile ],
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :FileSystemMetadata ],
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :JobSchedule ] ;
     :attack-id "AML.T0074" ;
     :definition "Adversaries may attempt to manipulate features of their artifacts to make them appear legitimate or benign to users and/or security tools. Masquerading occurs when the name or location of an object, legitimate or malicious, is manipulated or abused for the sake of evading defenses and observation. This may include manipulating file metadata, tricking users into misidentifying the file type, and giving legitimate task or service names." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0074> .
@@ -3829,7 +3862,10 @@ Adversaries may attempt to discover information about the services enabled throu
 :AML.T0076 a owl:Class ;
     rdfs:label "Corrupt AI Model - ATLAS" ;
     skos:prefLabel "Corrupt AI Model" ;
-    rdfs:subClassOf :ATLASDefenseEvasionTechnique ;
+    rdfs:subClassOf :ATLASDefenseEvasionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :corrupts ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0076" ;
     :definition "An adversary may purposefully corrupt a malicious AI model file so that it cannot be successfully deserialized in order to evade detection by a model scanner. The corrupt model may still successfully execute malicious code before deserialization fails." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0076> .
@@ -4133,7 +4169,16 @@ In attacks on AI systems, web session cookies may grant access to AI chat histor
 :AML.T0092 a owl:Class ;
     rdfs:label "Manipulate User LLM Chat History - ATLAS" ;
     skos:prefLabel "Manipulate User LLM Chat History" ;
-    rdfs:subClassOf :ATLASDefenseEvasionTechnique ;
+    rdfs:subClassOf :ATLASDefenseEvasionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :AccessToken ],
+        [ a owl:Restriction ;
+            owl:onProperty :deletes ;
+            owl:someValuesFrom :DigitalMessage ],
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :DigitalMessage ] ;
     :attack-id "AML.T0092" ;
     :definition """Adversaries may manipulate a user's large language model (LLM) chat history to cover the tracks of their malicious behavior. They may hide persistent changes they have made to the LLM's behavior, or obscure their attempts at discovering private information about the user.
 
@@ -4161,7 +4206,10 @@ Adversaries may perform [Reconnaissance](/tactics/AML.TA0002) to identify public
 :AML.T0094 a owl:Class ;
     rdfs:label "Delay Execution of LLM Instructions - ATLAS" ;
     skos:prefLabel "Delay Execution of LLM Instructions" ;
-    rdfs:subClassOf :ATLASDefenseEvasionTechnique ;
+    rdfs:subClassOf :ATLASDefenseEvasionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :injects ;
+            owl:someValuesFrom :DigitalText ] ;
     :attack-id "AML.T0094" ;
     :definition """Adversaries may include instructions to be followed by the AI system in response to a future event, such as a specific keyword or the next interaction, in order to evade detection or bypass controls placed on the AI system.
 
@@ -4217,7 +4265,16 @@ AI service APIs may be abused as C2 channels when an adversary wants to be steal
 :AML.T0097 a owl:Class ;
     rdfs:label "Virtualization/Sandbox Evasion - ATLAS" ;
     skos:prefLabel "Virtualization/Sandbox Evasion" ;
-    rdfs:subClassOf :ATLASDefenseEvasionTechnique ;
+    rdfs:subClassOf :ATLASDefenseEvasionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :MACAddress ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :ProcessEnvironmentVariable ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WindowsRegistryKey ] ;
     :attack-id "AML.T0097" ;
     :definition """Adversaries may employ various means to detect and avoid virtualization and analysis environments. This may include changing behaviors based on the results of checks for the presence of artifacts indicative of a virtual machine environment (VME) or sandbox. If the adversary detects a VME, they may alter their malware to disengage from the victim or conceal the core functions of the implant. They may also search for VME artifacts before dropping secondary or additional payloads.
 
@@ -4317,7 +4374,10 @@ There are many ways an adversary may escape from a container or sandbox environm
 :AML.T0107 a owl:Class ;
     rdfs:label "Exploitation for Defense Evasion - ATLAS" ;
     skos:prefLabel "Exploitation for Defense Evasion" ;
-    rdfs:subClassOf :ATLASDefenseEvasionTechnique ;
+    rdfs:subClassOf :ATLASDefenseEvasionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :disables ;
+            owl:someValuesFrom :Software ] ;
     :attack-id "AML.T0107" ;
     :definition "Adversaries may exploit a system or application vulnerability to bypass security features. Exploitation of a vulnerability occurs when an adversary takes advantage of a programming error in a program, service, or within the operating system software or kernel itself to execute adversary-controlled code. Vulnerabilities may exist in defensive security software that can be used to disable or circumvent them." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0107> .
@@ -4335,7 +4395,10 @@ The adversary may modify the behavior of an AI agent for C2 via [LLM Prompt Inje
 :AML.T0109 a owl:Class ;
     rdfs:label "AI Supply Chain Rug Pull - ATLAS" ;
     skos:prefLabel "AI Supply Chain Rug Pull" ;
-    rdfs:subClassOf :ATLASDefenseEvasionTechnique ;
+    rdfs:subClassOf :ATLASDefenseEvasionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :Software ] ;
     :attack-id "AML.T0109" ;
     :definition """Adversaries may publish legitimate AI components or software, gain user adoption, then push an update with a malicious variant, leading to [AI Supply Chain Compromise](/techniques/AML.T0010). More scrutiny is often placed on a supply chain dependency when it is first being considered for inclusion in an AI system. Performing a rug pull may allow adversaries to bypass these defenses and be more likely to achieve [Initial Access](/tactics/AML.TA0004).
 
@@ -4357,7 +4420,13 @@ By altering tool behavior such as modifying parameters or descriptions, injectin
 :AML.T0111 a owl:Class ;
     rdfs:label "AI Supply Chain Reputation Inflation - ATLAS" ;
     skos:prefLabel "AI Supply Chain Reputation Inflation" ;
-    rdfs:subClassOf :ATLASDefenseEvasionTechnique ;
+    rdfs:subClassOf :ATLASDefenseEvasionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :produces ;
+            owl:someValuesFrom :File ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :UserAccount ] ;
     :attack-id "AML.T0111" ;
     :definition """AI Supply Chain Reputation Inflation is the process of building or leveraging genuinely credible-looking trust signals to increase the perceived legitimacy of AI supply chain components, with the goal of driving adoption of malicious or compromised assets.
 
