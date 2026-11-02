@@ -3191,7 +3191,10 @@ Adversaries may also waste resources through agentic self-delegation loops. They
 :AML.T0035 a owl:Class ;
     rdfs:label "AI Artifact Collection - ATLAS" ;
     skos:prefLabel "AI Artifact Collection" ;
-    rdfs:subClassOf :ATLASCollectionTechnique ;
+    rdfs:subClassOf :ATLASCollectionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0035" ;
     :definition """Adversaries may collect AI artifacts for [Exfiltration](/tactics/AML.TA0010) or for use in [AI Attack Staging](/tactics/AML.TA0001).
 AI artifacts include models and datasets as well as other telemetry data produced when interacting with a model.""" ;
@@ -3200,7 +3203,19 @@ AI artifacts include models and datasets as well as other telemetry data produce
 :AML.T0036 a owl:Class ;
     rdfs:label "Data from Information Repositories - ATLAS" ;
     skos:prefLabel "Data from Information Repositories" ;
-    rdfs:subClassOf :ATLASCollectionTechnique ;
+    rdfs:subClassOf :ATLASCollectionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :CollaborativeSoftware ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Database ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WebFileResource ],
+        [ a owl:Restriction ;
+            owl:onProperty :reads ;
+            owl:someValuesFrom :CodeRepository ] ;
     :attack-id "AML.T0036" ;
     :definition """Adversaries may leverage information repositories to mine valuable information.
 Information repositories are tools that allow for storage of information, typically to facilitate collaboration or information sharing between users, and can store a wide variety of data that may aid adversaries in further objectives, or direct access to the target information.
@@ -4188,7 +4203,10 @@ Adversaries may systematically identify potentially vulnerable call chains prese
 :AML.T0085 a owl:Class ;
     rdfs:label "Data from AI Services - ATLAS" ;
     skos:prefLabel "Data from AI Services" ;
-    rdfs:subClassOf :ATLASCollectionTechnique ;
+    rdfs:subClassOf :ATLASCollectionTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :ServiceApplication ] ;
     :attack-id "AML.T0085" ;
     :definition """Adversaries may use their access to a victim organization's AI-enabled services to collect proprietary or otherwise sensitive information. As organizations adopt generative AI in centralized services for accessing an organization's data, such as with chat agents which can access retrieval augmented generation (RAG) databases and other data sources via tools, they become increasingly valuable targets for adversaries.
 
@@ -4198,7 +4216,10 @@ AI agents may be configured to have access to tools and data sources that are no
 :AML.T0085.000 a owl:Class ;
     rdfs:label "RAG Databases - ATLAS" ;
     skos:prefLabel "RAG Databases" ;
-    rdfs:subClassOf :AML.T0085 ;
+    rdfs:subClassOf :AML.T0085,
+        [ a owl:Restriction ;
+            owl:onProperty :reads ;
+            owl:someValuesFrom :Database ] ;
     :attack-id "AML.T0085.000" ;
     :definition "Adversaries may prompt the AI service to retrieve data from a RAG database. This can include the majority of an organization's internal documents." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0085.000> .
@@ -4206,7 +4227,10 @@ AI agents may be configured to have access to tools and data sources that are no
 :AML.T0085.001 a owl:Class ;
     rdfs:label "AI Agent Tools - ATLAS" ;
     skos:prefLabel "AI Agent Tools" ;
-    rdfs:subClassOf :AML.T0085 ;
+    rdfs:subClassOf :AML.T0085,
+        [ a owl:Restriction ;
+            owl:onProperty :invokes ;
+            owl:someValuesFrom :Application ] ;
     :attack-id "AML.T0085.001" ;
     :definition "Adversaries may prompt the AI service to invoke various tools the agent has access to. Tools may retrieve data from different APIs or services in an organization." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0085.001> .
