@@ -4371,7 +4371,19 @@ Credentials can be used to perform [Lateral Movement](/tactics/AML.TA0015) to ac
 :AML.T0091 a owl:Class ;
     rdfs:label "Use Alternate Authentication Material - ATLAS" ;
     skos:prefLabel "Use Alternate Authentication Material" ;
-    rdfs:subClassOf :ATLASLateralMovementTechnique ;
+    rdfs:subClassOf :ATLASLateralMovementTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :AuthenticationService ],
+        [ a owl:Restriction ;
+            owl:onProperty :produces ;
+            owl:someValuesFrom :WebNetworkTraffic ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :AccessToken ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :KerberosTicket ] ;
     :attack-id "AML.T0091" ;
     :definition """Adversaries may use alternate authentication material, such as password hashes, Kerberos tickets, and application access tokens, in order to move laterally within an environment and bypass normal system access controls.
 
@@ -4381,7 +4393,22 @@ AI services commonly use alternate authentication material as a primary means fo
 :AML.T0091.000 a owl:Class ;
     rdfs:label "Application Access Token - ATLAS" ;
     skos:prefLabel "Application Access Token" ;
-    rdfs:subClassOf :AML.T0091 ;
+    rdfs:subClassOf :AML.T0091,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :AuthenticationService ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :UserAccount ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WebAPIResource ],
+        [ a owl:Restriction ;
+            owl:onProperty :may-produce ;
+            owl:someValuesFrom :NetworkTraffic ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :AccessToken ] ;
     :attack-id "AML.T0091.000" ;
     :definition """Adversaries may use stolen application access tokens to bypass the typical authentication process and access restricted accounts, information, or services on remote systems. These tokens are typically stolen from users or services and used in lieu of login credentials.
 
