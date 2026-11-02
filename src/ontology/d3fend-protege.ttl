@@ -3644,7 +3644,31 @@ Jailbreak prompts that are known to work on various classes of LLMs are often pu
 :AML.T0055 a owl:Class ;
     rdfs:label "Unsecured Credentials - ATLAS" ;
     skos:prefLabel "Unsecured Credentials" ;
-    rdfs:subClassOf :ATLASCredentialAccessTechnique ;
+    rdfs:subClassOf :ATLASCredentialAccessTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :CloudInstanceMetadata ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :CommandHistoryLogFile ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Credential ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :File ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :GroupPolicy ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :PrivateKey ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :ProcessEnvironmentVariable ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :SystemConfigurationDatabase ] ;
     :attack-id "AML.T0055" ;
     :definition """Adversaries may search compromised systems to find and obtain insecurely stored credentials.
 These credentials can be stored and/or misplaced in many locations on a system, including plaintext files (e.g. bash history), environment variables, operating system, or application-specific repositories (e.g. Credentials in Registry), or other specialized files/artifacts (e.g. private keys).""" ;
@@ -4054,7 +4078,10 @@ Adversaries may modify or disable a configuration setting related to security co
 :AML.T0082 a owl:Class ;
     rdfs:label "RAG Credential Harvesting - ATLAS" ;
     skos:prefLabel "RAG Credential Harvesting" ;
-    rdfs:subClassOf :ATLASCredentialAccessTechnique ;
+    rdfs:subClassOf :ATLASCredentialAccessTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Credential ] ;
     :attack-id "AML.T0082" ;
     :definition "Adversaries may attempt to use their access to a large language model (LLM) on the victim's system to collect credentials. Credentials may be stored in internal documents which can inadvertently be ingested into a RAG database, where they can ultimately be retrieved by an AI agent." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0082> .
@@ -4235,7 +4262,37 @@ In Windows environments, adversaries could obtain details on running processes u
 :AML.T0090 a owl:Class ;
     rdfs:label "OS Credential Dumping - ATLAS" ;
     skos:prefLabel "OS Credential Dumping" ;
-    rdfs:subClassOf :ATLASCredentialAccessTechnique ;
+    rdfs:subClassOf :ATLASCredentialAccessTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :AccessToken ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :AuthenticationService ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :EncryptedCredential ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :OperatingSystemFile ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :PasswordFile ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Process ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :ProcessImage ],
+        [ a owl:Restriction ;
+            owl:onProperty :may-access ;
+            owl:someValuesFrom :SystemPasswordDatabase ],
+        [ a owl:Restriction ;
+            owl:onProperty :may-modify ;
+            owl:someValuesFrom :EventLog ],
+        [ a owl:Restriction ;
+            owl:onProperty :produces ;
+            owl:someValuesFrom :IntranetAdministrativeNetworkTraffic ] ;
     :attack-id "AML.T0090" ;
     :definition """Adversaries may extract credentials from OS caches, application memory, or other sources on a compromised system. Credentials are often in the form of a hash or clear text, and can include usernames and passwords, application tokens, or other authentication keys.
 
@@ -4392,7 +4449,19 @@ Adversaries may use several methods to accomplish Virtualization/Sandbox Evasion
 :AML.T0098 a owl:Class ;
     rdfs:label "AI Agent Tool Credential Harvesting - ATLAS" ;
     skos:prefLabel "AI Agent Tool Credential Harvesting" ;
-    rdfs:subClassOf :ATLASCredentialAccessTechnique ;
+    rdfs:subClassOf :ATLASCredentialAccessTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :CodeRepository ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Credential ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Email ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WebFileResource ] ;
     :attack-id "AML.T0098" ;
     :definition "Adversaries may attempt to use their access to an AI agent on the victim's system to retrieve data from available agent tools to collect credentials. Agent tools may connect to a wide range of sources that may contain credentials including document stores (e.g. SharePoint, OneDrive or Google Drive), code repositories (e.g. GitHub or GitLab), or enterprise productivity tools (e.g. as email providers or Slack), and local notetaking tools (e.g. Obsidian or Apple Notes)." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0098> .
@@ -4489,7 +4558,10 @@ There are many ways an adversary may escape from a container or sandbox environm
 :AML.T0106 a owl:Class ;
     rdfs:label "Exploitation for Credential Access - ATLAS" ;
     skos:prefLabel "Exploitation for Credential Access" ;
-    rdfs:subClassOf :ATLASCredentialAccessTechnique ;
+    rdfs:subClassOf :ATLASCredentialAccessTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Credential ] ;
     :attack-id "AML.T0106" ;
     :definition "Adversaries may exploit software vulnerabilities in an attempt to collect credentials. Exploitation of a software vulnerability occurs when an adversary takes advantage of a programming error in a program, service, or within the operating system software or kernel itself to execute adversary-controlled code." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0106> .
@@ -4606,7 +4678,13 @@ Malicious content stored in AI artifacts may be executed as a result of unsafe s
 :AML.T0113 a owl:Class ;
     rdfs:label "Steal Web Session Cookie - ATLAS" ;
     skos:prefLabel "Steal Web Session Cookie" ;
-    rdfs:subClassOf :ATLASCredentialAccessTechnique ;
+    rdfs:subClassOf :ATLASCredentialAccessTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Process ],
+        [ a owl:Restriction ;
+            owl:onProperty :injects ;
+            owl:someValuesFrom :ExecutableScript ] ;
     :attack-id "AML.T0113" ;
     :definition """Adversaries may steal web application or service session cookies used to authenticate users to AI-enabled systems, AI services, or supporting enterprise applications.
 
