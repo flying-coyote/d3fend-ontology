@@ -3249,7 +3249,10 @@ This can include basic fingerprinting information and sensitive data such as ssh
 :AML.T0040 a owl:Class ;
     rdfs:label "AI Model Inference API Access - ATLAS" ;
     skos:prefLabel "AI Model Inference API Access" ;
-    rdfs:subClassOf :ATLASAIModelAccessTechnique ;
+    rdfs:subClassOf :ATLASAIModelAccessTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WebAPIResource ] ;
     :attack-id "AML.T0040" ;
     :definition """Adversaries may gain access to a model via legitimate access to the inference API.
 Inference API access can be a source of information to the adversary ([Discover AI Model Ontology](/techniques/AML.T0013), [Discover AI Model Family](/techniques/AML.T0014)), a means of staging the attack ([Verify Attack](/techniques/AML.T0042), [Craft Adversarial Data](/techniques/AML.T0043)), or for introducing data to the target system for Impact ([Evade AI Model](/techniques/AML.T0015), [Erode AI Model Integrity](/techniques/AML.T0031)).
@@ -3260,7 +3263,10 @@ Many systems rely on the same models provided via an inference API, which means 
 :AML.T0041 a owl:Class ;
     rdfs:label "Physical Environment Access - ATLAS" ;
     skos:prefLabel "Physical Environment Access" ;
-    rdfs:subClassOf :ATLASAIModelAccessTechnique ;
+    rdfs:subClassOf :ATLASAIModelAccessTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :TransducerSensor ] ;
     :attack-id "AML.T0041" ;
     :definition """In addition to the attacks that take place purely in the digital domain, adversaries may also exploit the physical environment for their attacks.
 If the model is interacting with data collected from the real world in some way, the adversary can influence the model through access to wherever the data is being collected.
@@ -3369,7 +3375,10 @@ This technique is used in conjunction with [Poison AI Model](/techniques/AML.T00
 :AML.T0044 a owl:Class ;
     rdfs:label "Full AI Model Access - ATLAS" ;
     skos:prefLabel "Full AI Model Access" ;
-    rdfs:subClassOf :ATLASAIModelAccessTechnique ;
+    rdfs:subClassOf :ATLASAIModelAccessTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0044" ;
     :definition """Adversaries may gain full "white-box" access to an AI model.
 This means the adversary has complete knowledge of the model architecture, its parameters, and class ontology.
@@ -3393,7 +3402,10 @@ Adversaries may also spam AI agents with excessive low-severity auditable events
 :AML.T0047 a owl:Class ;
     rdfs:label "AI-Enabled Product or Service - ATLAS" ;
     skos:prefLabel "AI-Enabled Product or Service" ;
-    rdfs:subClassOf :ATLASAIModelAccessTechnique ;
+    rdfs:subClassOf :ATLASAIModelAccessTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :ServiceApplication ] ;
     :attack-id "AML.T0047" ;
     :definition """Adversaries may use a product or service that uses artificial intelligence under the hood to gain access to the underlying AI model.
 This type of indirect model access may reveal details of the AI model or its inferences in logs or metadata.""" ;
