@@ -2453,7 +2453,10 @@ Frequently, the next step is to [Acquire Public AI Artifacts](/techniques/AML.T0
 :AML.T0005 a owl:Class ;
     rdfs:label "Create Proxy AI Model - ATLAS" ;
     skos:prefLabel "Create Proxy AI Model" ;
-    rdfs:subClassOf :ATLASAIAttackStagingTechnique ;
+    rdfs:subClassOf :ATLASAIAttackStagingTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WebAPIResource ] ;
     :attack-id "AML.T0005" ;
     :definition """Adversaries may obtain models to serve as proxies for the target model in use at the victim organization.
 Proxy models are used to simulate complete access to the target model in a fully offline manner.
@@ -2473,7 +2476,10 @@ This can be used to develop attacks that require higher levels of access than th
 :AML.T0005.001 a owl:Class ;
     rdfs:label "Train Proxy via Replication - ATLAS" ;
     skos:prefLabel "Train Proxy via Replication" ;
-    rdfs:subClassOf :AML.T0005 ;
+    rdfs:subClassOf :AML.T0005,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WebAPIResource ] ;
     :attack-id "AML.T0005.001" ;
     :definition """Adversaries may replicate a private model.
 By repeatedly querying the victim's [AI Model Inference API Access](/techniques/AML.T0040), the adversary can collect the target model's inferences into a dataset.
@@ -2939,7 +2945,10 @@ They may implement ideas described in public research papers or develop custom m
     rdfs:label "Manipulate AI Model - ATLAS" ;
     skos:prefLabel "Manipulate AI Model" ;
     rdfs:subClassOf :ATLASAIAttackStagingTechnique,
-        :ATLASPersistenceTechnique ;
+        :ATLASPersistenceTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0018" ;
     :definition "Adversaries may directly manipulate an AI model to change its behavior or introduce malicious code. Manipulating a model gives the adversary a persistent change in the system. This can include poisoning the model by changing its weights, modifying the model architecture to change its behavior, and embedding malware which may be executed when the model is loaded." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0018> .
@@ -2947,7 +2956,10 @@ They may implement ideas described in public research papers or develop custom m
 :AML.T0018.000 a owl:Class ;
     rdfs:label "Poison AI Model - ATLAS" ;
     skos:prefLabel "Poison AI Model" ;
-    rdfs:subClassOf :AML.T0018 ;
+    rdfs:subClassOf :AML.T0018,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0018.000" ;
     :definition """Adversaries may manipulate an AI model's weights to change it's behavior or performance, resulting in a poisoned model.
 Adversaries may poison a model by directly manipulating its weights, training the model on poisoned data, further fine-tuning the model, or otherwise interfering with its training process.
@@ -2958,7 +2970,10 @@ The change in behavior of poisoned models may be limited to targeted categories 
 :AML.T0018.001 a owl:Class ;
     rdfs:label "Modify AI Model Architecture - ATLAS" ;
     skos:prefLabel "Modify AI Model Architecture" ;
-    rdfs:subClassOf :AML.T0018 ;
+    rdfs:subClassOf :AML.T0018,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0018.001" ;
     :definition """Adversaries may directly modify an AI model's architecture to re-define it's behavior. This can include adding or removing layers as well as adding pre or post-processing operations.
 
@@ -2968,7 +2983,10 @@ The effects could include removing the ability to predict certain classes, addin
 :AML.T0018.002 a owl:Class ;
     rdfs:label "Embed Malware - ATLAS" ;
     skos:prefLabel "Embed Malware" ;
-    rdfs:subClassOf :AML.T0018 ;
+    rdfs:subClassOf :AML.T0018,
+        [ a owl:Restriction ;
+            owl:onProperty :injects ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0018.002" ;
     :definition """Adversaries may embed malicious code into AI Model files.
 AI models may be packaged as a combination of instructions and weights.
@@ -3207,7 +3225,10 @@ By modifying the data in the collection process, the adversary can perform modif
 :AML.T0042 a owl:Class ;
     rdfs:label "Verify Attack - ATLAS" ;
     skos:prefLabel "Verify Attack" ;
-    rdfs:subClassOf :ATLASAIAttackStagingTechnique ;
+    rdfs:subClassOf :ATLASAIAttackStagingTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0042" ;
     :definition """Adversaries can verify the efficacy of their attack via an inference API or access to an offline copy of the target model.
 This gives the adversary confidence that their approach works and allows them to carry out the attack at a later time of their choosing.
@@ -3219,7 +3240,10 @@ Verifying the attack may be hard to detect since the adversary can use a minimal
 :AML.T0043 a owl:Class ;
     rdfs:label "Craft Adversarial Data - ATLAS" ;
     skos:prefLabel "Craft Adversarial Data" ;
-    rdfs:subClassOf :ATLASAIAttackStagingTechnique ;
+    rdfs:subClassOf :ATLASAIAttackStagingTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :DigitalMedia ] ;
     :attack-id "AML.T0043" ;
     :definition """Adversarial data are inputs to an AI model that have been modified such that they cause the adversary's desired effect in the target model.
 Effects can range from misclassification, to missed detections, to maximizing energy consumption.
@@ -3237,7 +3261,10 @@ An adversary may optimize adversarial examples for [Evade AI Model](/techniques/
 :AML.T0043.000 a owl:Class ;
     rdfs:label "White-Box Optimization - ATLAS" ;
     skos:prefLabel "White-Box Optimization" ;
-    rdfs:subClassOf :AML.T0043 ;
+    rdfs:subClassOf :AML.T0043,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0043.000" ;
     :definition """In White-Box Optimization, the adversary has full access to the target model and optimizes the adversarial example directly.
 Adversarial examples trained in this manner are most effective against the target model.""" ;
@@ -3246,7 +3273,10 @@ Adversarial examples trained in this manner are most effective against the targe
 :AML.T0043.001 a owl:Class ;
     rdfs:label "Black-Box Optimization - ATLAS" ;
     skos:prefLabel "Black-Box Optimization" ;
-    rdfs:subClassOf :AML.T0043 ;
+    rdfs:subClassOf :AML.T0043,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WebAPIResource ] ;
     :attack-id "AML.T0043.001" ;
     :definition """In Black-Box attacks, the adversary has black-box (i.e. [AI Model Inference API Access](/techniques/AML.T0040) via API access) access to the target model.
 With black-box attacks, the adversary may be using an API that the victim is monitoring.
@@ -3268,7 +3298,10 @@ If the adversary has [AI Model Inference API Access](/techniques/AML.T0040), the
 :AML.T0043.003 a owl:Class ;
     rdfs:label "Manual Modification - ATLAS" ;
     skos:prefLabel "Manual Modification" ;
-    rdfs:subClassOf :AML.T0043 ;
+    rdfs:subClassOf :AML.T0043,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :DigitalMedia ] ;
     :attack-id "AML.T0043.003" ;
     :definition """Adversaries may manually modify the input data to craft adversarial data.
 They may use their knowledge of the target model to modify parts of the data they suspect helps the model in performing its task.
@@ -3278,7 +3311,10 @@ The adversary may use trial and error until they are able to verify they have a 
 :AML.T0043.004 a owl:Class ;
     rdfs:label "Insert Backdoor Trigger - ATLAS" ;
     skos:prefLabel "Insert Backdoor Trigger" ;
-    rdfs:subClassOf :AML.T0043 ;
+    rdfs:subClassOf :AML.T0043,
+        [ a owl:Restriction ;
+            owl:onProperty :adds ;
+            owl:someValuesFrom :DigitalMedia ] ;
     :attack-id "AML.T0043.004" ;
     :definition """The adversary may add a perceptual trigger into inference data.
 The trigger may be imperceptible or non-obvious to humans.
@@ -4225,7 +4261,13 @@ The content may be targeted such that it would often be retrieved by common quer
 :AML.T0102 a owl:Class ;
     rdfs:label "Generate Malicious Commands - ATLAS" ;
     skos:prefLabel "Generate Malicious Commands" ;
-    rdfs:subClassOf :ATLASAIAttackStagingTechnique ;
+    rdfs:subClassOf :ATLASAIAttackStagingTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WebAPIResource ],
+        [ a owl:Restriction ;
+            owl:onProperty :produces ;
+            owl:someValuesFrom :Command ] ;
     :attack-id "AML.T0102" ;
     :definition """Adversaries may use large language models (LLMs) to dynamically generate malicious commands from natural language. Dynamically generated commands may be harder detect as the attack signature is constantly changing. AI-generated commands may also allow adversaries to more rapidly adapt to different environments and adjust their tactics.
 
