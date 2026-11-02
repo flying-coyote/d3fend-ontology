@@ -3935,7 +3935,16 @@ The adversary may use discovered system keywords to learn how to instruct a part
 :AML.T0072 a owl:Class ;
     rdfs:label "Reverse Shell - ATLAS" ;
     skos:prefLabel "Reverse Shell" ;
-    rdfs:subClassOf :ATLASCommandAndControlTechnique ;
+    rdfs:subClassOf :ATLASCommandAndControlTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :RemoteTerminalSession ],
+        [ a owl:Restriction ;
+            owl:onProperty :invokes ;
+            owl:someValuesFrom :RemoteShellCommand ],
+        [ a owl:Restriction ;
+            owl:onProperty :produces ;
+            owl:someValuesFrom :OutboundInternetNetworkTraffic ] ;
     :attack-id "AML.T0072" ;
     :definition """Adversaries may utilize a reverse shell to communicate and control the victim system.
 
@@ -4472,7 +4481,10 @@ Public code repositories can often be a source of various information about vict
 :AML.T0096 a owl:Class ;
     rdfs:label "AI Service API - ATLAS" ;
     skos:prefLabel "AI Service API" ;
-    rdfs:subClassOf :ATLASCommandAndControlTechnique ;
+    rdfs:subClassOf :ATLASCommandAndControlTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :OutboundInternetWebTraffic ] ;
     :attack-id "AML.T0096" ;
     :definition """Adversaries may communicate using the API of an AI service on the victim's system. The adversary's commands to the victim system, and often the results, are embedded in the normal traffic of the AI service.
 
@@ -4637,7 +4649,13 @@ There are many ways an adversary may escape from a container or sandbox environm
 :AML.T0108 a owl:Class ;
     rdfs:label "AI Agent - ATLAS" ;
     skos:prefLabel "AI Agent" ;
-    rdfs:subClassOf :ATLASCommandAndControlTechnique ;
+    rdfs:subClassOf :ATLASCommandAndControlTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :executes ;
+            owl:someValuesFrom :ShellCommand ],
+        [ a owl:Restriction ;
+            owl:onProperty :produces ;
+            owl:someValuesFrom :OutboundInternetNetworkTraffic ] ;
     :attack-id "AML.T0108" ;
     :definition """Adversaries may abuse AI agents present on the victim's system for command and control. AI agents are often granted access to tools that can execute shell commands, reach out to the internet, and interact with other services in the victim's environment, making them capable C2 agents.
 
@@ -4755,7 +4773,16 @@ In attacks on AI systems, session cookie theft can allow adversaries to bypass n
 :AML.T0114 a owl:Class ;
     rdfs:label "AI Service Web Interface - ATLAS" ;
     skos:prefLabel "AI Service Web Interface" ;
-    rdfs:subClassOf :ATLASCommandAndControlTechnique ;
+    rdfs:subClassOf :ATLASCommandAndControlTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :executes ;
+            owl:someValuesFrom :Command ],
+        [ a owl:Restriction ;
+            owl:onProperty :produces ;
+            owl:someValuesFrom :OutboundInternetWebTraffic ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :Browser ] ;
     :attack-id "AML.T0114" ;
     :definition """Adversaries may communicate with compromised systems by abusing the web interface of an AI service as an intermediary command-and-control relay. Instead of connecting directly to attacker-controlled infrastructure or using an AI provider's API, malware may open or automate a browser, embedded browser, or WebView component to interact with a public AI assistant.
 
