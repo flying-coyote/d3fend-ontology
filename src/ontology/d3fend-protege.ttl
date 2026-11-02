@@ -3102,7 +3102,10 @@ See the ATT&CK [Exfiltration](https://attack.mitre.org/tactics/TA0010/) tactic f
 :AML.T0029 a owl:Class ;
     rdfs:label "Denial of AI Service - ATLAS" ;
     skos:prefLabel "Denial of AI Service" ;
-    rdfs:subClassOf :ATLASImpactTechnique ;
+    rdfs:subClassOf :ATLASImpactTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :ServiceApplication ] ;
     :attack-id "AML.T0029" ;
     :definition """Adversaries may target AI-enabled systems with a flood of requests for the purpose of degrading or shutting down the service.
 Since many AI systems require significant amounts of specialized compute, they are often expensive bottlenecks that can become overloaded.
@@ -3121,7 +3124,10 @@ This can lead to the victim organization wasting time and money both attempting 
 :AML.T0034 a owl:Class ;
     rdfs:label "Cost Harvesting - ATLAS" ;
     skos:prefLabel "Cost Harvesting" ;
-    rdfs:subClassOf :ATLASImpactTechnique ;
+    rdfs:subClassOf :ATLASImpactTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :produces ;
+            owl:someValuesFrom :InboundInternetWebTraffic ] ;
     :attack-id "AML.T0034" ;
     :definition """Adversaries may deliberately drive a victim's AI services beyond normal operating capacity with the intent of increasing the cost of services. This may be achieved via high-volume, low-complexity queries ([Excessive Queries](/techniques/AML.T0034.000)) or low-volume, high-complexity queries ([Resource-Intensive Queries](/techniques/AML.T0034.001)). In Generative AI or Agentic AI systems, adversarial prompts may be introduced into the model's context to cause ([Agentic Resource Consumption](/techniques/AML.T0034.002)).
 
@@ -3136,7 +3142,10 @@ Cost Harvesting is especially relevant for cloud-hosted, pay-per-use AI/ML platf
 :AML.T0034.000 a owl:Class ;
     rdfs:label "Excessive Queries - ATLAS" ;
     skos:prefLabel "Excessive Queries" ;
-    rdfs:subClassOf :AML.T0034 ;
+    rdfs:subClassOf :AML.T0034,
+        [ a owl:Restriction ;
+            owl:onProperty :produces ;
+            owl:someValuesFrom :InboundInternetNetworkTraffic ] ;
     :attack-id "AML.T0034.000" ;
     :definition """Adversaries may send an excessive number of otherwise normal or low-complexity queries to an AI system with the goal of overwhelming its capacity and increasing operating costs.
 
@@ -3343,7 +3352,10 @@ They may exfiltrate the model to [Craft Adversarial Data](/techniques/AML.T0043)
 :AML.T0046 a owl:Class ;
     rdfs:label "Spamming AI System with Chaff Data - ATLAS" ;
     skos:prefLabel "Spamming AI System with Chaff Data" ;
-    rdfs:subClassOf :ATLASImpactTechnique ;
+    rdfs:subClassOf :ATLASImpactTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :abuses ;
+            owl:someValuesFrom :ServiceApplication ] ;
     :attack-id "AML.T0046" ;
     :definition """Adversaries may spam the AI system with chaff data that causes increase in the number of detections.
 This can cause analysts at the victim organization to waste time reviewing and correcting incorrect inferences.
@@ -3404,7 +3416,10 @@ These harms could affect the organization (e.g. Financial Harm, Reputational Har
 :AML.T0048.004 a owl:Class ;
     rdfs:label "AI Intellectual Property Theft - ATLAS" ;
     skos:prefLabel "AI Intellectual Property Theft" ;
-    rdfs:subClassOf :AML.T0048 ;
+    rdfs:subClassOf :AML.T0048,
+        [ a owl:Restriction ;
+            owl:onProperty :copies ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0048.004" ;
     :definition """Adversaries may exfiltrate AI artifacts to steal intellectual property and cause economic harm to the victim organization.
 
@@ -3630,7 +3645,10 @@ The leaked information may come from proprietary training data, data sources the
 :AML.T0059 a owl:Class ;
     rdfs:label "Erode Dataset Integrity - ATLAS" ;
     skos:prefLabel "Erode Dataset Integrity" ;
-    rdfs:subClassOf :ATLASImpactTechnique ;
+    rdfs:subClassOf :ATLASImpactTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0059" ;
     :definition "Adversaries may poison or manipulate portions of a dataset to reduce its usefulness, reduce trust, and cause users to waste resources correcting errors." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0059> .
@@ -4364,7 +4382,10 @@ The content may be targeted such that it would often be retrieved by common quer
 :AML.T0101 a owl:Class ;
     rdfs:label "Data Destruction via AI Agent Tool Invocation - ATLAS" ;
     skos:prefLabel "Data Destruction via AI Agent Tool Invocation" ;
-    rdfs:subClassOf :ATLASImpactTechnique ;
+    rdfs:subClassOf :ATLASImpactTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :deletes ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0101" ;
     :definition "Adversaries may invoke an AI agent's tool capable of performing mutative operations to perform Data Destruction. Adversaries may destroy data and files on specific systems or in large numbers on a network to interrupt availability to systems, services, and network resources." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0101> .
@@ -4492,7 +4513,13 @@ By relying on authentic history and usage patterns, these components pass both h
 :AML.T0112 a owl:Class ;
     rdfs:label "Machine Compromise - ATLAS" ;
     skos:prefLabel "Machine Compromise" ;
-    rdfs:subClassOf :ATLASImpactTechnique ;
+    rdfs:subClassOf :ATLASImpactTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Credential ],
+        [ a owl:Restriction ;
+            owl:onProperty :executes ;
+            owl:someValuesFrom :ExecutableFile ] ;
     :attack-id "AML.T0112" ;
     :definition """Adversaries may compromise a machine by exploiting or manipulating AI-enabled components on the system. Compromising a victim system allows the adversary to execute arbitrary code, steal credentials, exfiltrate data, and continue to persist on the system.
 
@@ -4502,7 +4529,13 @@ Adversaries may target a [Local AI Agent](/techniques/AML.T0112.000) which if co
 :AML.T0112.000 a owl:Class ;
     rdfs:label "Local AI Agent - ATLAS" ;
     skos:prefLabel "Local AI Agent" ;
-    rdfs:subClassOf :AML.T0112 ;
+    rdfs:subClassOf :AML.T0112,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Credential ],
+        [ a owl:Restriction ;
+            owl:onProperty :executes ;
+            owl:someValuesFrom :ExecutableFile ] ;
     :attack-id "AML.T0112.000" ;
     :definition """Adversaries may achieve full system compromise by abusing AI agents running locally on a host, such as computer-use agents or AI-driven browsers. These agents are designed to autonomously interact with the operating system, applications, and external services, often with broad permissions to execute commands, access files, manage credentials, and control user workflows.
 
@@ -4512,7 +4545,10 @@ If an adversary is able to take control of an AI agent's behavior, they effectiv
 :AML.T0112.001 a owl:Class ;
     rdfs:label "AI Artifacts - ATLAS" ;
     skos:prefLabel "AI Artifacts" ;
-    rdfs:subClassOf :AML.T0112 ;
+    rdfs:subClassOf :AML.T0112,
+        [ a owl:Restriction ;
+            owl:onProperty :executes ;
+            owl:someValuesFrom :ExecutableScript ] ;
     :attack-id "AML.T0112.001" ;
     :definition """Adversaries may achieve full system compromise by introducing malicious AI artifacts, such as models or data, that contain embedded malware or other malicious commands. AI artifacts are often stored in model registries or data stores and may affect many systems that pull these resources.
 
