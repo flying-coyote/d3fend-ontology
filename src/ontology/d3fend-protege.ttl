@@ -2339,7 +2339,13 @@ This will include not only reading academic papers that may identify the particu
 :AML.T0002 a owl:Class ;
     rdfs:label "Acquire Public AI Artifacts - ATLAS" ;
     skos:prefLabel "Acquire Public AI Artifacts" ;
-    rdfs:subClassOf :ATLASResourceDevelopmentTechnique ;
+    rdfs:subClassOf :ATLASResourceDevelopmentTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :CloudStorage ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :SoftwareRepository ] ;
     :attack-id "AML.T0002" ;
     :definition """Adversaries may search public sources, including cloud storage, public-facing services, and software or data repositories, to identify AI artifacts.
 These AI artifacts may include the software stack used to train and deploy models, training and testing data, model configurations and parameters.
@@ -2357,7 +2363,10 @@ Artifacts might be hosted on victim-controlled infrastructure, providing the vic
 :AML.T0002.000 a owl:Class ;
     rdfs:label "Datasets - ATLAS" ;
     skos:prefLabel "Datasets" ;
-    rdfs:subClassOf :AML.T0002 ;
+    rdfs:subClassOf :AML.T0002,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0002.000" ;
     :definition """Adversaries may collect public datasets to use in their operations.
 Datasets used by the victim organization or datasets that are representative of the data used by the victim organization may be valuable to adversaries.
@@ -2370,7 +2379,10 @@ Acquired datasets help the adversary advance their operations, stage attacks,  a
 :AML.T0002.001 a owl:Class ;
     rdfs:label "Models - ATLAS" ;
     skos:prefLabel "Models" ;
-    rdfs:subClassOf :AML.T0002 ;
+    rdfs:subClassOf :AML.T0002,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0002.001" ;
     :definition """Adversaries may acquire public models to use in their operations.
 Adversaries may seek models used by the victim organization or models that are representative of those used by the victim organization.
@@ -2383,7 +2395,13 @@ Acquired models are useful in advancing the adversary's operations and are frequ
 :AML.T0002.002 a owl:Class ;
     rdfs:label "AI Agent Configuration - ATLAS" ;
     skos:prefLabel "AI Agent Configuration" ;
-    rdfs:subClassOf :AML.T0002 ;
+    rdfs:subClassOf :AML.T0002,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :ApplicationConfigurationFile ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Credential ] ;
     :attack-id "AML.T0002.002" ;
     :definition """Adversaries may acquire publicly accessible AI agent configuration files to understand agent capabilities, gain unauthorized access to tools and data sources, or identify credentials for further attacks. Configuration files define what tools an agent can use, credentials for external services, system prompts, and behavioral settings, making valuable resources for adversaries targeting AI agent deployments.
 
@@ -2499,7 +2517,13 @@ This information can be used to identify targets for further collection, exfiltr
 :AML.T0008 a owl:Class ;
     rdfs:label "Acquire Infrastructure - ATLAS" ;
     skos:prefLabel "Acquire Infrastructure" ;
-    rdfs:subClassOf :ATLASResourceDevelopmentTechnique ;
+    rdfs:subClassOf :ATLASResourceDevelopmentTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :may-create ;
+            owl:someValuesFrom :DomainRegistration ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :ServiceApplication ] ;
     :attack-id "AML.T0008" ;
     :definition """Adversaries may buy, lease, or rent infrastructure for use throughout their operation.
 A wide variety of infrastructure exists for hosting and orchestrating adversary operations.
@@ -2515,7 +2539,13 @@ Depending on the implementation, adversaries may use infrastructure that makes i
 :AML.T0008.000 a owl:Class ;
     rdfs:label "AI Development Workspaces - ATLAS" ;
     skos:prefLabel "AI Development Workspaces" ;
-    rdfs:subClassOf :AML.T0008 ;
+    rdfs:subClassOf :AML.T0008,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :ComputingServer ],
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :GraphicsProcessingUnit ] ;
     :attack-id "AML.T0008.000" ;
     :definition """Developing and staging AI attacks often requires expensive compute resources.
 Adversaries may need access to one or many GPUs in order to develop an attack.
@@ -2526,7 +2556,10 @@ Multiple workspaces may be used to avoid detection.""" ;
 :AML.T0008.001 a owl:Class ;
     rdfs:label "Consumer Hardware - ATLAS" ;
     skos:prefLabel "Consumer Hardware" ;
-    rdfs:subClassOf :AML.T0008 ;
+    rdfs:subClassOf :AML.T0008,
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :PersonalComputer ] ;
     :attack-id "AML.T0008.001" ;
     :definition """Adversaries may acquire consumer hardware to conduct their attacks.
 Owning the hardware provides the adversary with complete control of the environment. These devices can be hard to trace.""" ;
@@ -2548,7 +2581,10 @@ Adversaries may use acquired domains for a variety of purposes (see [ATT&CK](htt
 :AML.T0008.003 a owl:Class ;
     rdfs:label "Physical Countermeasures - ATLAS" ;
     skos:prefLabel "Physical Countermeasures" ;
-    rdfs:subClassOf :AML.T0008 ;
+    rdfs:subClassOf :AML.T0008,
+        [ a owl:Restriction ;
+            owl:onProperty :impairs ;
+            owl:someValuesFrom :TransducerSensor ] ;
     :attack-id "AML.T0008.003" ;
     :definition """Adversaries may acquire or manufacture physical countermeasures to aid or support their attack.
 
@@ -2558,7 +2594,13 @@ These components may be used to disrupt or degrade the model, such as adversaria
 :AML.T0008.004 a owl:Class ;
     rdfs:label "Serverless - ATLAS" ;
     skos:prefLabel "Serverless" ;
-    rdfs:subClassOf :AML.T0008 ;
+    rdfs:subClassOf :AML.T0008,
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :ProxyServer ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :ServiceApplication ] ;
     :attack-id "AML.T0008.004" ;
     :definition """Adversaries may purchase and configure serverless cloud infrastructure, such as Cloudflare Workers, AWS Lambda functions, or Google Apps Scripts, that can be used during targeting. By utilizing serverless infrastructure, adversaries can make it more difficult to attribute infrastructure used during operations back to them.
 
@@ -2568,7 +2610,13 @@ Once acquired, the serverless runtime environment can be leveraged to either res
 :AML.T0008.005 a owl:Class ;
     rdfs:label "AI Service Proxies - ATLAS" ;
     skos:prefLabel "AI Service Proxies" ;
-    rdfs:subClassOf :AML.T0008 ;
+    rdfs:subClassOf :AML.T0008,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :CloudUserAccount ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :ProxyServer ] ;
     :attack-id "AML.T0008.005" ;
     :definition """Adversaries may utilize commercial proxy services that resell access to AI services such as frontier model APIs.
 
@@ -2764,7 +2812,13 @@ This technique can be used to evade a downstream task where AI is utilized. The 
 :AML.T0016 a owl:Class ;
     rdfs:label "Obtain Capabilities - ATLAS" ;
     skos:prefLabel "Obtain Capabilities" ;
-    rdfs:subClassOf :ATLASResourceDevelopmentTechnique ;
+    rdfs:subClassOf :ATLASResourceDevelopmentTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :Software ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :Software ] ;
     :attack-id "AML.T0016" ;
     :definition """Adversaries may search for and obtain software capabilities for use in their operations.
 Capabilities may be specific to AI-based attacks [Adversarial AI Attack Implementations](/techniques/AML.T0016.000) or generic software tools repurposed for malicious intent ([Software Tools](/techniques/AML.T0016.001)). In both instances, an adversary may modify or customize the capability to aid in targeting a particular AI-enabled system.""" ;
@@ -2773,7 +2827,10 @@ Capabilities may be specific to AI-based attacks [Adversarial AI Attack Implemen
 :AML.T0016.000 a owl:Class ;
     rdfs:label "Adversarial AI Attack Implementations - ATLAS" ;
     skos:prefLabel "Adversarial AI Attack Implementations" ;
-    rdfs:subClassOf :AML.T0016 ;
+    rdfs:subClassOf :AML.T0016,
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :SoftwareLibrary ] ;
     :attack-id "AML.T0016.000" ;
     :definition "Adversaries may search for existing open source implementations of AI attacks. The research community often publishes their code for reproducibility and to further future research. Libraries intended for research purposes, such as CleverHans, the Adversarial Robustness Toolbox, and FoolBox, can be weaponized by an adversary. Adversaries may also obtain and use tools that were not originally designed for adversarial AI attacks as part of their attack." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0016.000> .
@@ -2781,7 +2838,13 @@ Capabilities may be specific to AI-based attacks [Adversarial AI Attack Implemen
 :AML.T0016.001 a owl:Class ;
     rdfs:label "Software Tools - ATLAS" ;
     skos:prefLabel "Software Tools" ;
-    rdfs:subClassOf :AML.T0016 ;
+    rdfs:subClassOf :AML.T0016,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :Software ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :Software ] ;
     :attack-id "AML.T0016.001" ;
     :definition """Adversaries may search for and obtain software tools to support their operations.
 Software designed for legitimate use may be repurposed by an adversary for malicious intent.
@@ -2806,7 +2869,16 @@ Generative AI models may also be "uncensored" meaning they are designed to gener
 :AML.T0017 a owl:Class ;
     rdfs:label "Develop Capabilities - ATLAS" ;
     skos:prefLabel "Develop Capabilities" ;
-    rdfs:subClassOf :ATLASResourceDevelopmentTechnique ;
+    rdfs:subClassOf :ATLASResourceDevelopmentTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :ExecutableScript ],
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :Software ],
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :WebResource ] ;
     :attack-id "AML.T0017" ;
     :definition "Adversaries may develop their own capabilities to support operations. This process encompasses identifying requirements, building solutions, and deploying capabilities. Capabilities used to support attacks on AI-enabled systems are not necessarily AI-based themselves. Examples include setting up websites with adversarial information or creating Jupyter notebooks with obfuscated exfiltration code." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0017> .
@@ -2814,7 +2886,13 @@ Generative AI models may also be "uncensored" meaning they are designed to gener
 :AML.T0017.000 a owl:Class ;
     rdfs:label "Adversarial AI Attacks - ATLAS" ;
     skos:prefLabel "Adversarial AI Attacks" ;
-    rdfs:subClassOf :AML.T0017 ;
+    rdfs:subClassOf :AML.T0017,
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :Software ],
+        [ a owl:Restriction ;
+            owl:onProperty :uses ;
+            owl:someValuesFrom :SoftwareLibrary ] ;
     :attack-id "AML.T0017.000" ;
     :definition """Adversaries may develop their own adversarial attacks.
 They may leverage existing libraries as a starting point ([Adversarial AI Attack Implementations](/techniques/AML.T0016.000)).
@@ -2877,7 +2955,10 @@ This data may be introduced to a victim system via [AI Supply Chain Compromise](
     rdfs:label "Poison Training Data - ATLAS" ;
     skos:prefLabel "Poison Training Data" ;
     rdfs:subClassOf :ATLASPersistenceTechnique,
-        :ATLASResourceDevelopmentTechnique ;
+        :ATLASResourceDevelopmentTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0020" ;
     :definition """Adversaries may attempt to poison datasets used by an AI model by modifying the underlying data or its labels.
 This allows the adversary to embed vulnerabilities in AI models trained on the data that may not be easily detectable.
@@ -3443,7 +3524,13 @@ The leaked information may come from proprietary training data, data sources the
 :AML.T0060 a owl:Class ;
     rdfs:label "Publish Hallucinated Entities - ATLAS" ;
     skos:prefLabel "Publish Hallucinated Entities" ;
-    rdfs:subClassOf :ATLASResourceDevelopmentTechnique ;
+    rdfs:subClassOf :ATLASResourceDevelopmentTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :Software ],
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :WebResource ] ;
     :attack-id "AML.T0060" ;
     :definition "Adversaries may create an entity they control, such as a software package, website, or email address to a source hallucinated by an LLM. The hallucinations may take the form of package names commands, URLs, company names, or email addresses that point the victim to the entity controlled by the adversary. When the victim interacts with the adversary-controlled entity, the attack can proceed." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0060> .
@@ -3487,7 +3574,10 @@ RAG-indexed data may be identified in public documentation about the system, or 
 :AML.T0065 a owl:Class ;
     rdfs:label "LLM Prompt Crafting - ATLAS" ;
     skos:prefLabel "LLM Prompt Crafting" ;
-    rdfs:subClassOf :ATLASResourceDevelopmentTechnique ;
+    rdfs:subClassOf :ATLASResourceDevelopmentTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :DigitalMessage ] ;
     :attack-id "AML.T0065" ;
     :definition """Adversaries may use their acquired knowledge of the target generative AI system to craft prompts that bypass its defenses and allow malicious instructions to be executed.
 
@@ -3497,7 +3587,10 @@ The adversary may iterate on the prompt to ensure that it works as-intended cons
 :AML.T0066 a owl:Class ;
     rdfs:label "Retrieval Content Crafting - ATLAS" ;
     skos:prefLabel "Retrieval Content Crafting" ;
-    rdfs:subClassOf :ATLASResourceDevelopmentTechnique ;
+    rdfs:subClassOf :ATLASResourceDevelopmentTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :injects ;
+            owl:someValuesFrom :Database ] ;
     :attack-id "AML.T0066" ;
     :definition """Adversaries may write content designed to be retrieved by user queries and influence a user of the system in some way. This abuses the trust the user has in the system.
 
@@ -3674,7 +3767,10 @@ The same approach may be used to deliver other types of malicious code that don'
 :AML.T0079 a owl:Class ;
     rdfs:label "Stage Capabilities - ATLAS" ;
     skos:prefLabel "Stage Capabilities" ;
-    rdfs:subClassOf :ATLASResourceDevelopmentTechnique ;
+    rdfs:subClassOf :ATLASResourceDevelopmentTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :creates ;
+            owl:someValuesFrom :File ] ;
     :attack-id "AML.T0079" ;
     :definition """Adversaries may upload, install, or otherwise set up capabilities that can be used during targeting. To support their operations, an adversary may need to take capabilities they developed ([Develop Capabilities](/techniques/AML.T0017)) or obtained ([Obtain Capabilities](/techniques/AML.T0016)) and stage them on infrastructure under their control. These capabilities may be staged on infrastructure that was previously purchased/rented by the adversary ([Acquire Infrastructure](/techniques/AML.T0008)) or was otherwise compromised by them. Capabilities may also be staged on web services, such as GitHub, model registries, such as Hugging Face, or container registries.
 
