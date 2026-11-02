@@ -3057,7 +3057,10 @@ Poisoned data can be introduced via [AI Supply Chain Compromise](/techniques/AML
 :AML.T0024 a owl:Class ;
     rdfs:label "Exfiltration via AI Inference API - ATLAS" ;
     skos:prefLabel "Exfiltration via AI Inference API" ;
-    rdfs:subClassOf :ATLASExfiltrationTechnique ;
+    rdfs:subClassOf :ATLASExfiltrationTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WebAPIResource ] ;
     :attack-id "AML.T0024" ;
     :definition """Adversaries may exfiltrate private information via [AI Model Inference API Access](/techniques/AML.T0040).
 AI Models have been shown leak private information about their training data (e.g.  [Infer Training Data Membership](/techniques/AML.T0024.000), [Invert AI Model](/techniques/AML.T0024.001)).
@@ -4259,7 +4262,10 @@ AI agents may be configured to have access to tools and data sources that are no
 :AML.T0086 a owl:Class ;
     rdfs:label "Exfiltration via AI Agent Tool Invocation - ATLAS" ;
     skos:prefLabel "Exfiltration via AI Agent Tool Invocation" ;
-    rdfs:subClassOf :ATLASExfiltrationTechnique ;
+    rdfs:subClassOf :ATLASExfiltrationTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :invokes ;
+            owl:someValuesFrom :Application ] ;
     :attack-id "AML.T0086" ;
     :definition """AI agent tools capable of performing write operations may be invoked to exfiltrate data to an adversary. Sensitive information can be encoded into the tool's input parameters and transmitted to an adversary-controlled location (such as an inbox, document, or server) as part of a seemingly legitimate action. Variants include sending emails, creating or modifying documents, updating CRM records, or even generating media such as images or videos.
 
