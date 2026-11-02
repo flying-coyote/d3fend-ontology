@@ -4650,7 +4650,13 @@ Tools may be published to open source version control repositories (e.g. GitHub,
 :AML.T0105 a owl:Class ;
     rdfs:label "Escape to Host - ATLAS" ;
     skos:prefLabel "Escape to Host" ;
-    rdfs:subClassOf :ATLASPrivilegeEscalationTechnique ;
+    rdfs:subClassOf :ATLASPrivilegeEscalationTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Host ],
+        [ a owl:Restriction ;
+            owl:onProperty :modifies ;
+            owl:someValuesFrom :ApplicationConfiguration ] ;
     :attack-id "AML.T0105" ;
     :definition """Adversaries may break out of a container or virtualized environment to gain access to the underlying host. This can allow an adversary access to other containerized or virtualized resources from the host level or to the host itself. In principle, containerized / virtualized resources should provide a clear separation of application functionality and be isolated from the host environment.
 
