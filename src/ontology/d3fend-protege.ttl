@@ -2512,7 +2512,13 @@ Information gained from Active Scanning may yield targets that provide opportuni
 :AML.T0007 a owl:Class ;
     rdfs:label "Discover AI Artifacts - ATLAS" ;
     skos:prefLabel "Discover AI Artifacts" ;
-    rdfs:subClassOf :ATLASDiscoveryTechnique ;
+    rdfs:subClassOf :ATLASDiscoveryTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :enumerates ;
+            owl:someValuesFrom :Repository ],
+        [ a owl:Restriction ;
+            owl:onProperty :enumerates ;
+            owl:someValuesFrom :SoftwareRepository ] ;
     :attack-id "AML.T0007" ;
     :definition """Adversaries may search private sources to identify AI learning artifacts that exist on the system and gather information about them.
 These artifacts can include the software stack used to train and deploy models, training and testing data management systems, container registries, software repositories, and model zoos.
@@ -2815,7 +2821,10 @@ Compromised credentials may also grant an adversary increased privileges such as
 :AML.T0013 a owl:Class ;
     rdfs:label "Discover AI Model Ontology - ATLAS" ;
     skos:prefLabel "Discover AI Model Ontology" ;
-    rdfs:subClassOf :ATLASDiscoveryTechnique ;
+    rdfs:subClassOf :ATLASDiscoveryTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :reads ;
+            owl:someValuesFrom :ConfigurationFile ] ;
     :attack-id "AML.T0013" ;
     :definition """Adversaries may discover the ontology of an AI model's output space, for example, the types of objects a model can detect.
 The adversary may discovery the ontology by repeated queries to the model, forcing it to enumerate its output space.
@@ -3660,7 +3669,13 @@ They may request software packages, commands, URLs, organization names, or e-mai
 :AML.T0063 a owl:Class ;
     rdfs:label "Discover AI Model Outputs - ATLAS" ;
     skos:prefLabel "Discover AI Model Outputs" ;
-    rdfs:subClassOf :ATLASDiscoveryTechnique ;
+    rdfs:subClassOf :ATLASDiscoveryTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :reads ;
+            owl:someValuesFrom :Log ],
+        [ a owl:Restriction ;
+            owl:onProperty :reads ;
+            owl:someValuesFrom :WebAPIResource ] ;
     :attack-id "AML.T0063" ;
     :definition """Adversaries may discover model outputs, such as class scores, whose presence is not required for the system to function and are not intended for use by the end user. Model outputs may be found in logs or may be included in API responses.
 Model outputs may enable the adversary to identify weaknesses in the model and develop attacks.""" ;
@@ -3743,7 +3758,10 @@ Inputs can also be obscured via an encoding scheme such as base64 or rot13. This
 :AML.T0069 a owl:Class ;
     rdfs:label "Discover LLM System Information - ATLAS" ;
     skos:prefLabel "Discover LLM System Information" ;
-    rdfs:subClassOf :ATLASDiscoveryTechnique ;
+    rdfs:subClassOf :ATLASDiscoveryTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :reads ;
+            owl:someValuesFrom :ConfigurationFile ] ;
     :attack-id "AML.T0069" ;
     :definition "The adversary is trying to discover something about the large language model's (LLM) system information. This may be found in a configuration file containing the system instructions or extracted via interactions with the LLM. The desired information may include the full system prompt, special characters that have significance to the LLM or keywords indicating functionality available to the LLM. Information about how the LLM is instructed can be used by the adversary to understand the system's capabilities and to aid them in crafting malicious prompts." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0069> .
@@ -3759,7 +3777,10 @@ Inputs can also be obscured via an encoding scheme such as base64 or rot13. This
 :AML.T0069.001 a owl:Class ;
     rdfs:label "System Instruction Keywords - ATLAS" ;
     skos:prefLabel "System Instruction Keywords" ;
-    rdfs:subClassOf :AML.T0069 ;
+    rdfs:subClassOf :AML.T0069,
+        [ a owl:Restriction ;
+            owl:onProperty :enumerates ;
+            owl:someValuesFrom :Identifier ] ;
     :attack-id "AML.T0069.001" ;
     :definition "Adversaries may discover keywords that have special meaning to the large language model (LLM), such as function names or object names. These can later be exploited to confuse or manipulate the LLM into misbehaving and to make calls to plugins the LLM has access to." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0069.001> .
@@ -3767,7 +3788,10 @@ Inputs can also be obscured via an encoding scheme such as base64 or rot13. This
 :AML.T0069.002 a owl:Class ;
     rdfs:label "System Prompt - ATLAS" ;
     skos:prefLabel "System Prompt" ;
-    rdfs:subClassOf :AML.T0069 ;
+    rdfs:subClassOf :AML.T0069,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :DigitalMessage ] ;
     :attack-id "AML.T0069.002" ;
     :definition "Adversaries may discover a large language model's system instructions provided by the AI system builder to learn about the system's capabilities and circumvent its guardrails." ;
     rdfs:seeAlso <https://atlas.mitre.org/techniques/AML.T0069.002> .
@@ -3852,7 +3876,13 @@ Adversaries may target resources that are part of the AI DevOps lifecycle, such 
 :AML.T0075 a owl:Class ;
     rdfs:label "Cloud Service Discovery - ATLAS" ;
     skos:prefLabel "Cloud Service Discovery" ;
-    rdfs:subClassOf :ATLASDiscoveryTechnique ;
+    rdfs:subClassOf :ATLASDiscoveryTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :WebAPIResource ],
+        [ a owl:Restriction ;
+            owl:onProperty :reads ;
+            owl:someValuesFrom :CloudConfiguration ] ;
     :attack-id "AML.T0075" ;
     :definition """Adversaries may attempt to enumerate the cloud services running on a system after gaining access. These methods can differ from platform-as-a-service (PaaS), to infrastructure-as-a-service (IaaS), software-as-a-service (SaaS), or AI-as-a-service (AIaaS). Many services exist throughout the various cloud providers and can include Continuous Integration and Continuous Delivery (CI/CD), Lambda Functions, Entra ID, AI Inference, Generative AI, Agentic AI, etc. They may also include security services, such as AWS GuardDuty and Microsoft Defender for Cloud, and logging services, such as AWS CloudTrail and Google Cloud Audit Logs.
 
@@ -3994,7 +4024,10 @@ AI Agents often utilize external tools or services to take actions, such as quer
 :AML.T0084 a owl:Class ;
     rdfs:label "Discover AI Agent Configuration - ATLAS" ;
     skos:prefLabel "Discover AI Agent Configuration" ;
-    rdfs:subClassOf :ATLASDiscoveryTechnique ;
+    rdfs:subClassOf :ATLASDiscoveryTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :ApplicationConfiguration ] ;
     :attack-id "AML.T0084" ;
     :definition """Adversaries may attempt to discover configuration information for AI agents present on the victim's system. Agent configurations can include tools or services they have access to.
 
@@ -4006,7 +4039,10 @@ Adversaries can use the information they discover about AI agents to help with t
 :AML.T0084.000 a owl:Class ;
     rdfs:label "Embedded Knowledge - ATLAS" ;
     skos:prefLabel "Embedded Knowledge" ;
-    rdfs:subClassOf :AML.T0084 ;
+    rdfs:subClassOf :AML.T0084,
+        [ a owl:Restriction ;
+            owl:onProperty :may-access ;
+            owl:someValuesFrom :Credential ] ;
     :attack-id "AML.T0084.000" ;
     :definition """Adversaries may attempt to discover the data sources a particular agent can access.  The AI agent's configuration may reveal data sources or knowledge.
 
@@ -4034,7 +4070,16 @@ Understanding these triggers can reveal how the AI agent is activated and contro
 :AML.T0084.003 a owl:Class ;
     rdfs:label "Call Chains - ATLAS" ;
     skos:prefLabel "Call Chains" ;
-    rdfs:subClassOf :AML.T0084 ;
+    rdfs:subClassOf :AML.T0084,
+        [ a owl:Restriction ;
+            owl:onProperty :enumerates ;
+            owl:someValuesFrom :EvalFunction ],
+        [ a owl:Restriction ;
+            owl:onProperty :enumerates ;
+            owl:someValuesFrom :UserInputFunction ],
+        [ a owl:Restriction ;
+            owl:onProperty :reads ;
+            owl:someValuesFrom :ApplicationConfigurationFile ] ;
     :attack-id "AML.T0084.003" ;
     :definition """Adversaries may extract call chains from AI agent configurations, which can reveal potentially targets for remote code execution (RCE) or other vulnerabilities. Vulnerable call chains often connect user inputs or LLM outputs to an execution sink (e.g. exec, eval, os.popen). The vulnerabilities may be later exploited via [LLM Prompt Injection](/techniques/AML.T0051).
 
@@ -4115,7 +4160,16 @@ Adversaries may utilize open-source models and software that were designed for l
 :AML.T0089 a owl:Class ;
     rdfs:label "Process Discovery - ATLAS" ;
     skos:prefLabel "Process Discovery" ;
-    rdfs:subClassOf :ATLASDiscoveryTechnique ;
+    rdfs:subClassOf :ATLASDiscoveryTechnique,
+        [ a owl:Restriction ;
+            owl:onProperty :accesses ;
+            owl:someValuesFrom :Process ],
+        [ a owl:Restriction ;
+            owl:onProperty :may-invoke ;
+            owl:someValuesFrom :CreateProcess ],
+        [ a owl:Restriction ;
+            owl:onProperty :may-invoke ;
+            owl:someValuesFrom :GetRunningProcesses ] ;
     :attack-id "AML.T0089" ;
     :definition """Adversaries may attempt to get information about processes running on a system. Once obtained, this information could be used to gain an understanding of common AI-related software/applications running on systems within the network. Administrator or otherwise elevated access may provide better process details.
 
